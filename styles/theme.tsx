@@ -19,53 +19,36 @@ export const theme = extendTheme({
   components: {
     Heading: {
       baseStyle: {
-        fontFamily: "Poppins", //Cousine 47, Fira Code 3-7, Fira Mono 457, Roboto Mono 1-7, Poppins 1-9, Roboto 134579, Sen 478, Montserrat 1-9
+        fontFamily: "Jost", 
         fontWeight: "700",
-        color:"black"
+        color:"#3A4374"
       },
       sizes: {
-        Display: {
-          fontSize: {base:"70px"},
-          lineHeight: "15vh",
-        },
         H1: {
-          fontFamily: "Poppins",
-          fontSize: {base:"19vw",ts:"80px"}, //64px
-          fontWeight: "900",
-          letterSpacing: {base:"-1px",mm:"1px"}
+          fontSize: {base:"24px"}, 
+          lineHeight: "35px",
+          letterSpacing: {base:"-0.33px"}
 
         },
         H2: {
-          fontSize: {base:"16px"},
+          fontSize: {base:"20px"},
           lineHeight: "29px",
+          letterSpacing: {base:"-0.25px"},
+          color:"white"
         },
 
         H3: {
-          fontSize: {base:"26px"},
-          lineHeight: "29px",
-          letterSpacing: "2px",
+          fontSize: {base:"18px"},
+          lineHeight: "26px",
+          letterSpacing: {base:"-0.25px"}
         },
 
-        SubH1: {
-          fontSize: "17px",
-          lineHeight: "28px",
-          fontWeight: "500"
+        H4: {
+          fontSize: "14px",
+          lineHeight: "20px",
+          letterSpacing: {base:"-0.2px"},
+          color:"white"
         },
-        SubH2: {
-          fontSize: "16px",
-          lineHeight: "28px",
-          fontWeight: "400",
-          opacity:"0.8",
-        },
-        Menu: {
-          fontFamily: "Roboto Mono",
-          fontSize: "16px",
-          lineHeight: "28px",
-          fontWeight: "500",
-
-          // letterSpacing: "4px",
-        },
-
         // };
         // defaultProps: {
         //     size: string;
@@ -75,21 +58,35 @@ export const theme = extendTheme({
 
     Text: {
       baseStyle: {
-        fontFamily: "Poppins",
-        fontWeight: "300",
-        fontSize: "15px",
+        fontFamily: "Jost",
+        fontWeight: "400",
+        fontSize: "14px",
+        color:"#3A4374"
+
       },
       sizes: {
-        Body: {
-            fontSize: {base:"15px"},
+        Body1: {
+            fontSize: {base:"16px"},
+          },
+
+        Body2: {
+        fontSize: {base:"15px"},
+        color:"white"
+        },
+
+        Body3: {
+            fontSize: {base:"13px"},
+            fontWeight: "600",
+            color:"#4661E6"
+
           },
       },
     },
   },
 
   fonts: {
-    heading: "Poppins",
-    body: "Poppins",
+    heading: "Jost",
+    body: "Jost",
   },
    
   breakpoints
