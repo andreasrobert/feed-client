@@ -47,7 +47,6 @@ export const theme = extendTheme({
           fontSize: "14px",
           lineHeight: "20px",
           letterSpacing: {base:"-0.2px"},
-          color:"white"
         },
         // };
         // defaultProps: {

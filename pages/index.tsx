@@ -5,8 +5,27 @@ import styles from "../styles/Home.module.css";
 import LeftBar from "../components/leftBar";
 import PostBar from "../components/postBar";
 import TopBar from "../components/topBar";
+import { useEffect, useState } from "react";
+import { Post } from "./types";
 
 const Home: NextPage = () => {
+  const [posts, setPosts] = useState([] as Post[]);
+
+  const getPosts = async () => {
+    const res = await fetch(
+      "https://feed-database-postgres.herokuapp.com/post",
+      { method: "GET"}
+    );
+    const result = await res.json();
+    setPosts(result);
+  };
+
+  useEffect(() => {
+    getPosts();
+
+  }, []);
+
+
   return (
     <>
       <Flex
@@ -20,11 +39,15 @@ const Home: NextPage = () => {
           <Flex w="255px" h="530px" mr="30px" flexDir="column">
             <LeftBar></LeftBar>
           </Flex>
-          <Flex  w="825px" h="800px" flexDir="column" >
+          <Flex w="825px" h="800px" flexDir="column">
             <TopBar></TopBar>
-            <PostBar></PostBar>
-            <PostBar></PostBar>
-            <PostBar></PostBar>
+
+            {posts.map((post)=>{
+                return(
+                    <PostBar key={post.id} data={post}></PostBar>
+                )
+            })}
+
           </Flex>
         </Flex>
       </Flex>
