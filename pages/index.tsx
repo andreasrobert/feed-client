@@ -15,8 +15,16 @@ const Home: NextPage = () => {
 
   const getPosts = async () => {
     const res = await fetch(
-      "http://localhost:4000/post",
-      { method: "GET"}
+      "http://localhost:4000/posts",
+      { method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        sort: `${sort}`,
+      }),
+    }
     );
     const result = await res.json();
     setPosts(result);
