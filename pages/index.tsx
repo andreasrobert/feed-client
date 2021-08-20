@@ -6,7 +6,7 @@ import LeftBar from "../components/leftBar";
 import PostBar from "../components/postBar";
 import TopBar from "../components/topBar";
 import { useEffect, useState } from "react";
-import { Post } from "./types";
+import { Post } from "../components/types";
 
 const Home: NextPage = () => {
   const [posts, setPosts] = useState([] as Post[]);

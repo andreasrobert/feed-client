@@ -3,7 +3,7 @@ import Link from "next/link";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Post } from "../types";
+import { Post } from "../../components/types";
 import PostBar from "../../components/postBar";
 import TopBar from "../../components/topBar";
 import Comment from "../../components/comment";
