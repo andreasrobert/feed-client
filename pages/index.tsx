@@ -13,7 +13,7 @@ const Home: NextPage = () => {
 
   const getPosts = async () => {
     const res = await fetch(
-      "https://feed-database-postgres.herokuapp.com/post",
+      "http://localhost:4000/post",
       { method: "GET"}
     );
     const result = await res.json();
@@ -35,11 +35,11 @@ const Home: NextPage = () => {
         bg="#F2F4FF"
         justifyContent="center"
       >
-        <Flex mt="74px">
-          <Flex w="255px" h="530px" mr="30px" flexDir="column">
+        <Flex mt="74px" flexDir={{base:"column",sm:"row"}}  alignItems={{base:"center",sm:"initial"}}>
+          <Flex w={{base:"100%",sm:"255px"}} h={{sm:"530px"}} mr={{sm:"30px"}} flexDir={{base:"row",sm:"column"}}>
             <LeftBar></LeftBar>
           </Flex>
-          <Flex w="825px" h="800px" flexDir="column">
+          <Flex w={{base:"90vw",tb:"825px"}} mb="13vh" flexDir="column">
             <TopBar></TopBar>
 
             {posts.map((post)=>{
