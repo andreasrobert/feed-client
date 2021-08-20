@@ -1,14 +1,34 @@
 import { Flex, Heading, Text, Input, Button, Image, Textarea } from "@chakra-ui/react";
 import Link from "next/link";
 import type { NextPage } from "next";
-import styles from "../styles/Home.module.css";
-import TopBar from "../components/topBar";
-import { useEffect, useState } from "react";
-import { Post } from "./types";
+import { useState } from "react";
+import { useRouter } from 'next/router'
 
 const New: NextPage = () => {
+  const router = useRouter()
+  
+  const [title, setTitle] = useState("")
+  const [body, setBody] = useState("")
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+    fetch("http://localhost:4000/post", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        title: `${title}`,
+        body: `${body}`,
+      }),
+    }).then(()=>router.push("/"))
+  };
+
   return (
     <>
+    <form onSubmit={handleSubmit}>
       <Flex
         pos="absolute"
         minW="100%"
@@ -38,10 +58,10 @@ const New: NextPage = () => {
             mb="20vh"
             p="42px"
           >
-            <Heading size="H1">Create New Feed</Heading>
+            <Heading size="H1">Create New Post</Heading>
 
 <Flex flexDir="column">
-            <Heading size="H4">Feed Title</Heading>
+            <Heading size="H4">Post Title</Heading>
             <Text>Add a short, descriptive headline</Text>
             <Input
               focusBorderColor="none"
@@ -50,28 +70,47 @@ const New: NextPage = () => {
               placeholder="Title"
               name="title"
               required
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
 </Flex>
 <Flex flexDir="column">
-            <Heading size="H4">Feed Detail</Heading>
+            <Heading size="H4">Post Detail</Heading>
             <Text>
-              Include any specific comments on what shuold be improved, added,
-              etc.
+              Include any specific comment
             </Text>
             <Textarea
-              placeholder="Here is a sample placeholder"
+              placeholder=". . ."
               resize="none"
               focusBorderColor="none"
               bg="#F2F4FF"
               border="none"
+              value={body}
+              onChange={(e) => setBody(e.target.value)}
             />
             </Flex>
-            <Flex alignSelf="flex-end" w="150px" h="44px" bg="#AD1FEA" borderRadius="9px" justifyContent="center" alignItems="center">
-                <Heading size="H4" color="white">+ Add Feedback</Heading>
-            </Flex>
+            <Button
+              alignSelf="flex-end"
+              _hover={{ bg: "#C75AF6" }}
+              _active={{
+                bg: "#C75AF6",
+                border: "none",
+              }}
+              _focus={{
+                boxShadow: "none",
+              }}
+              color="white"
+              bg="#AD1FEA"
+              w="130px"
+              type="submit"
+              fontSize="15px"
+            >
+              + Add Post
+            </Button>
           </Flex>
         </Flex>
       </Flex>
+      </form>
     </>
   );
 };

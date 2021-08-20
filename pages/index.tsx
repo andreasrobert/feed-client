@@ -10,6 +10,8 @@ import { Post } from "./types";
 
 const Home: NextPage = () => {
   const [posts, setPosts] = useState([] as Post[]);
+  const [sort, setSort] = useState("Most Upvotes")
+
 
   const getPosts = async () => {
     const res = await fetch(
@@ -40,7 +42,7 @@ const Home: NextPage = () => {
             <LeftBar></LeftBar>
           </Flex>
           <Flex w={{base:"90vw",tb:"825px"}} mb="13vh" flexDir="column">
-            <TopBar></TopBar>
+            <TopBar sort={sort} setSort={setSort}></TopBar>
 
             {posts.map((post)=>{
                 return(

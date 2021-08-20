@@ -8,15 +8,13 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import type { NextPage } from "next";
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import LeftBar from "../components/leftBar";
-import PostBar from "../components/postBar";
-import TopBar from "../components/topBar";
 import { useEffect, useState } from "react";
-import { Post } from "./types";
+import { useRouter } from "next/router";
+
 
 const Login: NextPage = () => {
+  const router = useRouter().query;
+
   const [login, setLogin] = useState(true);
   const [userReg, setUserReg] = useState("");
   const [pass1Reg, setPass1Reg] = useState("");
@@ -35,7 +33,11 @@ const Login: NextPage = () => {
     } else {
       setReg(false);
     }
-  }, [pass1Reg, pass2Reg, reg]);
+
+    if(router.reg === "true"){
+      setLogin(false)
+    }
+  }, [pass1Reg, pass2Reg, router.reg]);
 
   const handleLogin = async (event: any) => {
     event.preventDefault();
@@ -44,8 +46,6 @@ const Login: NextPage = () => {
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
       },
-      // We convert the React state to JSON and send it as the POST body
-      //   body: `password=testpass`
       body: JSON.stringify({
         username: `${userLog}`,
         password: `${passLog}`,
@@ -58,10 +58,9 @@ const Login: NextPage = () => {
           if(!result.token){
             window.location.href = "http://localhost:3000/login?log=failed";
           }else{
-            document.cookie = `token=${result.token};max-age=500;path=/`;
+            document.cookie = `token=${result.token};max-age=15000;path=/`;
             window.location.href = "http://localhost:3000/";
           }
-        
       });
   };
 

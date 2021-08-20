@@ -7,6 +7,7 @@ import { Post } from "../types";
 import PostBar from "../../components/postBar";
 import TopBar from "../../components/topBar";
 import Comment from "../../components/comment";
+import InputComment from "../../components/inputComment";
 
 const PostPage: NextPage = () => {
   const router = useRouter();
@@ -97,6 +98,7 @@ const PostPage: NextPage = () => {
             px="35px"
             pt="15px"
             _after={{ content: `""`,h:"9px",w:"91%", bg: "white", pos: "absolute", bottom:"4px" }}
+            d={comments[0] ? "flex": "none"}
           >
             {comments ? (
               comments.map((data) => {
@@ -106,6 +108,7 @@ const PostPage: NextPage = () => {
               <> </>
             )}
           </Flex>
+          <InputComment postId={id} getComments={getComments}></InputComment>
         </Flex>
       </Flex>
     </>
