@@ -159,7 +159,7 @@ export default function PostBar(props: { data: any }) {
 
           <Flex flexDir="column" justifyContent="space-between">
           
-            <Link href={`http://localhost:3000/post/${props.data.id}`} passHref>
+            <Link href={`https://thefeed.netlify.app/post/${props.data.id}`} passHref>
               <Heading d={page ? "none" : "inherit"} size="H3" cursor="pointer">
                 {props.data.title} 
               </Heading>

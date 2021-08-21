@@ -56,10 +56,10 @@ const Login: NextPage = () => {
       })
       .then((result) => {
           if(!result.token){
-            window.location.href = "http://localhost:3000/login?log=failed";
+            window.location.href = "https://thefeed.netlify.app/login?log=failed";
           }else{
             document.cookie = `token=${result.token};max-age=15000;path=/`;
-            window.location.href = "http://localhost:3000/";
+            window.location.href = "https://thefeed.netlify.app/";
           }
       });
   };
@@ -83,10 +83,10 @@ const Login: NextPage = () => {
       })
       .then((result) => {
           if(result === "user created"){
-            window.location.href = "http://localhost:3000/login?reg=success";
+            window.location.href = "https://thefeed.netlify.app/login?reg=success";
           }
           else if(result === "username already used"){
-            window.location.href = "http://localhost:3000/login?reg=failed";
+            window.location.href = "https://thefeed.netlify.app/login?reg=failed";
           }
       });
   };
