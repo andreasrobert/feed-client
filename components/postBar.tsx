@@ -51,6 +51,62 @@ export default function PostBar(props: { data: any }) {
     checkPoint();
   }, []);
 
+ 
+  function timeSince(time:any) {
+
+    switch (typeof time) {
+      case 'number':
+        break;
+      case 'string':
+        time = +new Date(time);
+        break;
+      case 'object':
+        if (time.constructor === Date) time = time.getTime();
+        break;
+      default:
+        time = +new Date();
+    }
+    var time_formats = [
+      [60, 'seconds', 1], 
+      [120, '1 minute ago', '1 minute from now'], 
+      [3600, 'minutes', 60], 
+      [7200, '1 hour ago', '1 hour from now'], 
+      [86400, 'hours', 3600], 
+      [172800, 'Yesterday', 'Tomorrow'], 
+      [604800, 'days', 86400], 
+      [1209600, 'Last week', 'Next week'], 
+      [2419200, 'weeks', 604800], 
+      [4838400, 'Last month', 'Next month'], 
+      [29030400, 'months', 2419200], 
+      [58060800, 'Last year', 'Next year'], 
+      [2903040000, 'years', 29030400], 
+      [5806080000, 'Last century', 'Next century'], 
+      [58060800000, 'centuries', 2903040000] 
+    ];
+    var seconds = (+new Date() - time) / 1000,
+      token = 'ago',
+      list_choice = 1;
+  
+    if (seconds == 0) {
+      return 'Just now'
+    }
+    if (seconds < 0) {
+      seconds = Math.abs(seconds);
+      token = 'from now';
+      list_choice = 2;
+    }
+    var i = 0,
+      format;
+    while (format = time_formats[i++])
+      if (seconds < format[0]) {
+        if (typeof format[2] == 'string')
+          return format[list_choice];
+        else
+          return Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token;
+      }
+    return time;
+  }
+
   const addPoint = async () => {
     setPoints(points + 1);
     setNeutral(true);
@@ -96,24 +152,26 @@ export default function PostBar(props: { data: any }) {
       <Flex
         bg="white"
         minH="151px"
-        w="100%"
+        w={{base:"95%",mb:"100%"}}
         borderRadius="10px"
         my="10px"
         justifyContent="space-between"
-        alignItems="center"
+        alignItems={{mb:"center"}}
+        flexDir={{base:"column",mb:"row"}}
         px="32px"
         py="28px"
         pos="relative"
+        
       >
         <Flex h="100%">
           <Flex
-            // bg="#F2F4FF"
+            d={{base:"none",mb:"flex"}}
             bg={neutral ? "#4661E6" : "#F2F4FF"}
-            w="40px"
-            h="53px"
+            w={{base:"69px",mb:"40px"}}
+            h={{base:"32px",mb:"53px"}}
             borderRadius="8px"
             mr="40px"
-            flexDir="column"
+            flexDir={{mb:"column"}}
             justifyContent="center"
             alignItems="center"
             cursor="pointer"
@@ -143,17 +201,19 @@ export default function PostBar(props: { data: any }) {
             <Heading
               size="H4"
               className="arrow"
-              px="10px"
+              pl={{base:"10px",mb:"10px"}}
+              pr={{mb:"10px"}}
               color={neutral ? "white" : "#3A4374"}
             >
               {points}
             </Heading>
           </Flex>
 
-          <Flex flexDir="column">
+          <Flex flexDir="column" justifyContent="space-between">
+          
             <Link href={`http://localhost:3000/post/${props.data.id}`} passHref>
               <Heading d={page ? "none" : "inherit"} size="H3" cursor="pointer">
-                {props.data.title}
+                {props.data.title} 
               </Heading>
             </Link>
             <Heading d={page ? "inherit" : "none"} size="H3">
@@ -162,24 +222,71 @@ export default function PostBar(props: { data: any }) {
             <Text size="Body1">{props.data.body}</Text>
             <Flex
               bg="#F2F4FF"
-              px="16px"
-              py="5px"
+              px="6px"
+              py="1px"
               w="fit-content"
-              borderRadius="8px"
+              borderRadius="5px"
               mt="3px"
             >
-              <Text size="Body3">Feature</Text>
-            </Flex>
+              <Text size="Body3">{`Posted by u/${props.data.username} ${timeSince(props.data.created_at)}`}</Text>
+            </Flex>  
           </Flex>
+          
         </Flex>
         <Flex
-          ml="12px"
-          minW="50px"
+          ml={{mb:"12px"}}
+          justifyContent="space-between"
+          minW={{base:"100%",mb:"50px"}}
           h="40px"
+          mt={{base:"20px",mb:"0px"}}
           borderRadius="9px"
           flexShrink={0}
           alignItems="center"
         >
+           <Flex
+            d={{base:"flex",mb:"none"}}
+            bg={neutral ? "#4661E6" : "#F2F4FF"}
+            w={{base:"69px",mb:"40px"}}
+            h={{base:"32px",mb:"53px"}}
+            borderRadius="8px"
+            flexDir={{mb:"column"}}
+            justifyContent="center"
+            alignItems="center"
+            cursor="pointer"
+            onClick={neutral ? decreasePoint : addPoint}
+            flexShrink={0}
+            className="parentArrow"
+            _hover={{
+              bg: "#CFD7FF",
+            }}
+          >
+            <Image
+              w="12px"
+              h="8px"
+              src="/icon-arrow-up.svg"
+              className="arrow"
+              alt=""
+              filter={neutral? "invert(0) sepia(0) saturate(1) hue-rotate(0deg) brightness(1.2)":"invert(0.4) sepia(1) saturate(20) hue-rotate(190.8deg) brightness(0.78)"}
+              mb="4px"
+            ></Image>
+            <style jsx global>{`
+                .parentArrow:hover .arrow{
+                filter:invert(0.4) sepia(1) saturate(20) hue-rotate(190.8deg) brightness(0.78);
+                color: #3A4374";
+              }
+              `}</style>
+
+            <Heading
+              size="H4"
+              className="arrow"
+              pl={{base:"10px",mb:"10px"}}
+              pr={{mb:"10px"}}
+              color={neutral ? "white" : "#3A4374"}
+            >
+              {points}
+            </Heading>
+          </Flex>
+          <Flex alignItems="center">
           <Image
             w="20px"
             h="20px"
@@ -188,6 +295,7 @@ export default function PostBar(props: { data: any }) {
             mr="10px"
           ></Image>
           <Heading size="H3">{comments}</Heading>
+          </Flex>
         </Flex>
       </Flex>
     </>

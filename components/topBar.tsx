@@ -13,10 +13,10 @@ export default function TopBar(props:{sort:string; setSort:(sort:string)=>void})
     <>
       <Flex
         bg="#373F68"
-        h="72px"
+        h={{base:"59px",mb:"72px"}}
         w="100%"
         p="14px"
-        borderRadius="10px"
+        borderRadius={{mb:"10px"}}
         mb="14px"
         justifyContent="space-between"
         alignItems="center"
@@ -63,6 +63,7 @@ export default function TopBar(props:{sort:string; setSort:(sort:string)=>void})
         </Flex>
         <Link href="/new" passHref>
           <Button
+          mb={{base:"-5px",mb:"2px"}}
             alignSelf="flex-end"
             _hover={{ bg: "#C75AF6" }}
             _active={{
@@ -74,7 +75,7 @@ export default function TopBar(props:{sort:string; setSort:(sort:string)=>void})
             }}
             color="white"
             bg="#AD1FEA"
-            w="150px"
+            w={{base:"100px",mm:"120px",mb:"150px"}}
             type="submit"
             fontSize="15px"
           >
