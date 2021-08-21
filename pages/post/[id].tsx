@@ -17,7 +17,7 @@ const PostPage: NextPage = () => {
   const [comments, setComments] = useState([] as Post[]);
 
   const getPost = async () => {
-    const res = await fetch("http://localhost:4000/postpage", {
+    const res = await fetch("https://feed-database-postgres.herokuapp.com/postpage", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ const PostPage: NextPage = () => {
   };
 
   const getComments = async () => {
-    const res = await fetch("http://localhost:4000/comments", {
+    const res = await fetch("https://feed-database-postgres.herokuapp.com/comments", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const PostPage: NextPage = () => {
       }),
     });
     const result = await res.json();
-    console.log(result);
+    // console.log(result);
     setComments(result);
   };
 
@@ -55,7 +55,6 @@ const PostPage: NextPage = () => {
     if (id !== undefined) {
       getPost();
       getComments();
-      console.log(id);
     }
   }, [id]);
 

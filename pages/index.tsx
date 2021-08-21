@@ -18,7 +18,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     const getPosts = async () => {
       const res = await fetch(
-        "http://localhost:4000/posts",
+        "https://feed-database-postgres.herokuapp.com/posts",
         { method: "POST",
         headers: {
           "Content-Type": "application/json",

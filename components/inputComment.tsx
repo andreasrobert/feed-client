@@ -17,18 +17,18 @@ export default function NewComment(props: { postId: any ; getComments:()=> void}
   const handleComment = async (event: any) => {
     setLoading(true)
     event.preventDefault();
-    fetch("http://localhost:4000/newcomment", {
+    fetch("https://feed-database-postgres.herokuapp.com/newcomment", {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        cookies : document.cookie
       },
       body: JSON.stringify({
         comment: `${input}`,
         post_id: `${props.postId}`,
       }),
-    }).then(()=>props.getComments())
+    }).then(()=>{props.getComments();setLoading(false)})
   };
 
   return (

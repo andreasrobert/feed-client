@@ -41,7 +41,7 @@ const Login: NextPage = () => {
 
   const handleLogin = async (event: any) => {
     event.preventDefault();
-    fetch("http://localhost:4000/login", {
+    fetch("https://feed-database-postgres.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
@@ -66,7 +66,7 @@ const Login: NextPage = () => {
 
   const handleRegistry = async (event: any) => {
     event.preventDefault();
-    await fetch("http://localhost:4000/register", {
+    await fetch("https://feed-database-postgres.herokuapp.com/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=UTF-8",

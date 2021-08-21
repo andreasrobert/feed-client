@@ -14,12 +14,12 @@ const New: NextPage = () => {
   const handleSubmit = async (event: any) => {
     setLoading(true)
     event.preventDefault();
-    fetch("http://localhost:4000/post", {
+    fetch("https://feed-database-postgres.herokuapp.com/post", {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        cookies : document.cookie
       },
       body: JSON.stringify({
         title: `${title}`,

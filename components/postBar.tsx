@@ -2,6 +2,8 @@ import { Flex, Heading, Text, Image } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import dayjs from 'dayjs'
+import relativeTime from "dayjs/plugin/relativeTime";
 
 export default function PostBar(props: { data: any }) {
   const [points, setPoints] = useState(0);
@@ -11,6 +13,8 @@ export default function PostBar(props: { data: any }) {
   const router = useRouter();
   const { id } = router.query;
   const page = Number.isInteger(Number(id));
+
+  dayjs.extend(relativeTime)
 
   const getPoints = async () => {
     const res = await fetch(
@@ -22,7 +26,7 @@ export default function PostBar(props: { data: any }) {
   };
 
   const getComments = async () => {
-    const res = await fetch(`http://localhost:4000/comments/${props.data.id}`, {
+    const res = await fetch(`https://feed-database-postgres.herokuapp.com/comments/${props.data.id}`, {
       method: "GET",
     });
     const result = await res.json();
@@ -30,12 +34,12 @@ export default function PostBar(props: { data: any }) {
   };
 
   const checkPoint = async () => {
-    const res = await fetch("http://localhost:4000/checkPoint", {
+    const res = await fetch("https://feed-database-postgres.herokuapp.com/checkPoint", {
       method: "POST",
-      credentials: "include",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        cookies : document.cookie
       },
       body: JSON.stringify({
         post_id: `${props.data.id}`,
@@ -51,73 +55,16 @@ export default function PostBar(props: { data: any }) {
     checkPoint();
   }, []);
 
- 
-  function timeSince(time:any) {
-
-    switch (typeof time) {
-      case 'number':
-        break;
-      case 'string':
-        time = +new Date(time);
-        break;
-      case 'object':
-        if (time.constructor === Date) time = time.getTime();
-        break;
-      default:
-        time = +new Date();
-    }
-    var time_formats = [
-      [60, 'seconds', 1], 
-      [120, '1 minute ago', '1 minute from now'], 
-      [3600, 'minutes', 60], 
-      [7200, '1 hour ago', '1 hour from now'], 
-      [86400, 'hours', 3600], 
-      [172800, 'Yesterday', 'Tomorrow'], 
-      [604800, 'days', 86400], 
-      [1209600, 'Last week', 'Next week'], 
-      [2419200, 'weeks', 604800], 
-      [4838400, 'Last month', 'Next month'], 
-      [29030400, 'months', 2419200], 
-      [58060800, 'Last year', 'Next year'], 
-      [2903040000, 'years', 29030400], 
-      [5806080000, 'Last century', 'Next century'], 
-      [58060800000, 'centuries', 2903040000] 
-    ];
-    var seconds = (+new Date() - time) / 1000,
-      token = 'ago',
-      list_choice = 1;
-
-
-    if (seconds == 0) {
-      return 'Just now'
-    }
-    if (seconds < 0) {
-      seconds = Math.abs(seconds);
-      token = 'from now';
-      list_choice = 2;
-    }
-    var i = 0,
-      format;
-    while (format = time_formats[i++])
-      if (seconds < format[0]) {
-        if (typeof format[2] == 'string')
-          return format[list_choice];
-        else
-          return Math.floor(seconds / format[2]) + ' ' + format[1] + ' ' + token;
-      }
-    return time;
-  }
-
   const addPoint = async () => {
     setPoints(points + 1);
     setNeutral(true);
-    console.log("up");
-    const res = await fetch(`http://localhost:4000/points`, {
+    // console.log("up");
+    const res = await fetch(`https://feed-database-postgres.herokuapp.com/points`, {
       method: "POST",
-      credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        cookies : document.cookie
       },
       body: JSON.stringify({
         user_id: String(props.data.creator_id),
@@ -125,19 +72,19 @@ export default function PostBar(props: { data: any }) {
       }),
     });
     const result = await res.json();
-    console.log(result);
+    // console.log(result);
   };
 
   const decreasePoint = async () => {
     setPoints(points - 1);
     setNeutral(false);
-    console.log("down");
-    const res = await fetch(`http://localhost:4000/point`, {
+    // console.log("down");
+    const res = await fetch(`https://feed-database-postgres.herokuapp.com/point`, {
       method: "POST",
-      credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        cookies : document.cookie
       },
       body: JSON.stringify({
         user_id: String(props.data.creator_id),
@@ -145,7 +92,7 @@ export default function PostBar(props: { data: any }) {
       }),
     });
     const result = await res.json();
-    console.log(result);
+    // console.log(result);
   };
 
   return (
@@ -229,7 +176,7 @@ export default function PostBar(props: { data: any }) {
               borderRadius="5px"
               mt="3px"
             >
-              <Text size="Body3">{`Posted by u/${props.data.username} ${timeSince(props.data.created_at)}`}</Text>
+              <Text size="Body3">{`Posted by u/${props.data.username} ${dayjs(props.data.created_at).fromNow()}`}</Text>
             </Flex>  
           </Flex>
           
