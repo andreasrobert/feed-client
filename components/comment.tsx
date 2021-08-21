@@ -1,20 +1,46 @@
 import { Flex, Heading, Text, Image } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import dayjs from 'dayjs'
+import relativeTime from "dayjs/plugin/relativeTime";
+import utc from 'dayjs/plugin/utc';
 
 export default function Comment(props: { data: any }) {
+  // dayjs().format()
+
+  // dayjs.extend(relativeTime)
+  // dayjs.extend(utc)
+
+  // console.log(dayjs.utc(props.data.created_at).fromNow()
+  // )
+
+
+  var currentdate = new Date(); 
+var datetime = "Last Sync: " + currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + " @ "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
+
+              
+              console.log(props.data.created_at)
+
 
   function timeSince(time:any) {
 
     switch (typeof time) {
       case 'number':
+        console.log("num")
         break;
       case 'string':
+        console.log("string")
         time = +new Date(time);
         break;
       case 'object':
         if (time.constructor === Date) time = time.getTime();
         break;
       default:
+        console.log("defaul")
         time = +new Date();
     }
     var time_formats = [
@@ -37,7 +63,7 @@ export default function Comment(props: { data: any }) {
     var seconds = (+new Date() - time) / 1000,
       token = 'ago',
       list_choice = 1;
-  
+
     if (seconds == 0) {
       return 'Just now'
     }
@@ -57,8 +83,7 @@ export default function Comment(props: { data: any }) {
       }
     return time;
   }
-  
-  console.log(props.data.created_at)
+
 
   return (
     <>
