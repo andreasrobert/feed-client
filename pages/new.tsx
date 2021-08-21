@@ -9,8 +9,10 @@ const New: NextPage = () => {
   
   const [title, setTitle] = useState("")
   const [body, setBody] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (event: any) => {
+    setLoading(true)
     event.preventDefault();
     fetch("http://localhost:4000/post", {
       method: "POST",
@@ -104,6 +106,8 @@ const New: NextPage = () => {
               w="130px"
               type="submit"
               fontSize="15px"
+              isDisabled={loading? true: false}
+              isLoading={loading? true: false}
             >
               + Add Post
             </Button>

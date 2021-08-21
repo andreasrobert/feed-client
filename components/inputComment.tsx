@@ -11,8 +11,11 @@ import { useEffect, useState } from "react";
 
 export default function NewComment(props: { postId: any ; getComments:()=> void}) {
   const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false)
+
 
   const handleComment = async (event: any) => {
+    setLoading(true)
     event.preventDefault();
     fetch("http://localhost:4000/newcomment", {
       method: "POST",
@@ -74,6 +77,8 @@ export default function NewComment(props: { postId: any ; getComments:()=> void}
               w="150px"
               type="submit"
               fontSize="15px"
+              isDisabled={loading? true: false}
+              isLoading={loading? true: false}
             >
               + Post Comment
             </Button>
