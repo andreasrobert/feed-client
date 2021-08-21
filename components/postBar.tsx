@@ -56,14 +56,18 @@ export default function PostBar(props: { data: any }) {
 
     switch (typeof time) {
       case 'number':
+        console.log("numer")
         break;
       case 'string':
+        console.log("strin")
         time = +new Date(time);
         break;
       case 'object':
+        console.log("obje")
         if (time.constructor === Date) time = time.getTime();
         break;
       default:
+        console.log("defau")
         time = +new Date();
     }
     var time_formats = [
@@ -86,7 +90,11 @@ export default function PostBar(props: { data: any }) {
     var seconds = (+new Date() - time) / 1000,
       token = 'ago',
       list_choice = 1;
-  
+   console.log(seconds);
+   console.log(time);
+   console.log((+new Date().getTime())/1000)
+   console.log(~~(+new Date() / 1000))
+
     if (seconds == 0) {
       return 'Just now'
     }
