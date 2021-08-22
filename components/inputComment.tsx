@@ -1,34 +1,36 @@
 import {
   Flex,
   Heading,
-  Text,
-  Input,
   Button,
-  Image,
   Textarea,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export default function NewComment(props: { postId: any ; getComments:()=> void}) {
+export default function NewComment(props: {
+  postId: any;
+  getComments: () => void;
+}) {
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false)
-
+  const [loading, setLoading] = useState(false);
 
   const handleComment = async (event: any) => {
-    setLoading(true)
+    setLoading(true);
     event.preventDefault();
     fetch("https://feed-database-postgres.herokuapp.com/newcomment", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        cookies : document.cookie
+        cookies: document.cookie,
       },
       body: JSON.stringify({
         comment: `${input}`,
         post_id: `${props.postId}`,
       }),
-    }).then(()=>{props.getComments();setLoading(false)})
+    }).then(() => {
+      props.getComments();
+      setLoading(false);
+    });
   };
 
   return (
@@ -77,8 +79,8 @@ export default function NewComment(props: { postId: any ; getComments:()=> void}
               w="150px"
               type="submit"
               fontSize="15px"
-              isDisabled={loading? true: false}
-              isLoading={loading? true: false}
+              isDisabled={loading ? true : false}
+              isLoading={loading ? true : false}
             >
               + Post Comment
             </Button>

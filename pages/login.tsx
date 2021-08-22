@@ -1,16 +1,8 @@
-import {
-  Flex,
-  Heading,
-  Text,
-  Input,
-  Button,
-  Image,
-} from "@chakra-ui/react";
+import { Flex, Heading, Text, Input, Button, Image } from "@chakra-ui/react";
 import Link from "next/link";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-
 
 const Login: NextPage = () => {
   const router = useRouter().query;
@@ -34,8 +26,8 @@ const Login: NextPage = () => {
       setReg(false);
     }
 
-    if(router.reg === "true"){
-      setLogin(false)
+    if (router.reg === "true") {
+      setLogin(false);
     }
   }, [pass1Reg, pass2Reg, router.reg]);
 
@@ -55,12 +47,12 @@ const Login: NextPage = () => {
         return response.json();
       })
       .then((result) => {
-          if(!result.token){
-            window.location.href = "https://thefeed.netlify.app/login?log=failed";
-          }else{
-            document.cookie = `token=${result.token};max-age=15000;path=/`;
-            window.location.href = "https://thefeed.netlify.app/";
-          }
+        if (!result.token) {
+          window.location.href = "https://thefeed.netlify.app/login?log=failed";
+        } else {
+          document.cookie = `token=${result.token};max-age=15000;path=/`;
+          window.location.href = "https://thefeed.netlify.app/";
+        }
       });
   };
 
@@ -71,8 +63,6 @@ const Login: NextPage = () => {
       headers: {
         "Content-Type": "application/json;charset=UTF-8",
       },
-      // We convert the React state to JSON and send it as the POST body
-      //   body: `password=testpass`
       body: JSON.stringify({
         username: `${userReg}`,
         password: `${pass1Reg}`,
@@ -82,12 +72,12 @@ const Login: NextPage = () => {
         return response.json();
       })
       .then((result) => {
-          if(result === "user created"){
-            window.location.href = "https://thefeed.netlify.app/login?reg=success";
-          }
-          else if(result === "username already used"){
-            window.location.href = "https://thefeed.netlify.app/login?reg=failed";
-          }
+        if (result === "user created") {
+          window.location.href =
+            "https://thefeed.netlify.app/login?reg=success";
+        } else if (result === "username already used") {
+          window.location.href = "https://thefeed.netlify.app/login?reg=failed";
+        }
       });
   };
 
@@ -103,11 +93,21 @@ const Login: NextPage = () => {
         <Flex flexDir="column">
           <Flex h="20vh" alignItems="center">
             <Link href="/" passHref>
-                <Flex alignItems="center">
-                <Image mr="5px" src="/icon-arrow-left.svg" w="8px" h="10px" alt=""></Image>
-              <Heading _hover={{textDecoration:"underline"}} cursor="pointer" size="H4">
-                Go Back
-              </Heading>
+              <Flex alignItems="center">
+                <Image
+                  mr="5px"
+                  src="/icon-arrow-left.svg"
+                  w="8px"
+                  h="10px"
+                  alt=""
+                ></Image>
+                <Heading
+                  _hover={{ textDecoration: "underline" }}
+                  cursor="pointer"
+                  size="H4"
+                >
+                  Go Back
+                </Heading>
               </Flex>
             </Link>
           </Flex>

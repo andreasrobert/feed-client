@@ -17,39 +17,40 @@ const PostPage: NextPage = () => {
   const [comments, setComments] = useState([] as Post[]);
 
   const getPost = async () => {
-    const res = await fetch("https://feed-database-postgres.herokuapp.com/postpage", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        post_id: `${id}`,
-      }),
-    });
+    const res = await fetch(
+      "https://feed-database-postgres.herokuapp.com/postpage",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          post_id: `${id}`,
+        }),
+      }
+    );
     const result = await res.json();
-    // console.log("heree ="+result.id)
     setPosts(result);
   };
 
   const getComments = async () => {
-    const res = await fetch("https://feed-database-postgres.herokuapp.com/comments", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        post_id: `${id}`,
-      }),
-    });
+    const res = await fetch(
+      "https://feed-database-postgres.herokuapp.com/comments",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          post_id: `${id}`,
+        }),
+      }
+    );
     const result = await res.json();
-    // console.log(result);
     setComments(result);
   };
-
-  // console.log(comments)
-  // console.log(posts)
 
   useEffect(() => {
     if (id !== undefined) {
@@ -96,8 +97,15 @@ const PostPage: NextPage = () => {
             pos="relative"
             px="35px"
             pt="15px"
-            _after={{ content: `""`,h:"9px",w:"91%", bg: "white", pos: "absolute", bottom:"4px" }}
-            d={comments[0] ? "flex": "none"}
+            _after={{
+              content: `""`,
+              h: "9px",
+              w: "91%",
+              bg: "white",
+              pos: "absolute",
+              bottom: "4px",
+            }}
+            d={comments[0] ? "flex" : "none"}
           >
             {comments ? (
               comments.map((data) => {

@@ -58,93 +58,95 @@ export default function LeftBar() {
               p="24px"
             >
               <Flex
-          w="100%"
-          h="137px"
-          borderRadius="10px"
-          bg="white"
-          my={{ sm: "24px" }}
-          flexDir="column"
-          alignItems="center"
-          justifyContent="center"
-          p="4px"
-        >
-          <Link href="/login" passHref>
-            <a>
-              <Flex
-                mb="14px"
-                bg="#F2F4FF"
-                h="fit-content"
-                w="fit-content"
-                px="16px"
-                py="5px"
-                borderRadius="8px"
-                cursor="pointer"
+                w="100%"
+                h="137px"
+                borderRadius="10px"
+                bg="white"
+                my={{ sm: "24px" }}
+                flexDir="column"
+                alignItems="center"
+                justifyContent="center"
+                p="4px"
               >
-                <Text size="Body3">Login</Text>
-              </Flex>
-            </a>
-          </Link>
+                <Link href="/login" passHref>
+                  <a>
+                    <Flex
+                      mb="14px"
+                      bg="#F2F4FF"
+                      h="fit-content"
+                      w="fit-content"
+                      px="16px"
+                      py="5px"
+                      borderRadius="8px"
+                      cursor="pointer"
+                    >
+                      <Text size="Body3">Login</Text>
+                    </Flex>
+                  </a>
+                </Link>
 
-          <Link href="/login?reg=true" passHref>
-            <a>
-              <Flex
-                bg="#F2F4FF"
-                h="fit-content"
-                w="fit-content"
-                px="16px"
-                py="5px"
-                borderRadius="8px"
-                cursor="pointer"
-              >
-                <Text size="Body3">Register</Text>
+                <Link href="/login?reg=true" passHref>
+                  <a>
+                    <Flex
+                      bg="#F2F4FF"
+                      h="fit-content"
+                      w="fit-content"
+                      px="16px"
+                      py="5px"
+                      borderRadius="8px"
+                      cursor="pointer"
+                    >
+                      <Text size="Body3">Register</Text>
+                    </Flex>
+                  </a>
+                </Link>
               </Flex>
-            </a>
-          </Link>
-        </Flex>
 
-        <Flex
-        mt="30px"
-          w="100%"
-          h="137px"
-          borderRadius="10px"
-          bg="white"
-          flexDir="column"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Link href="https://github.com/andreasrobert/feed-client" passHref>
-            <a>
               <Flex
-                bg="#F2F4FF"
-                h="fit-content"
-                w="fit-content"
-                px="16px"
-                py="5px"
-                borderRadius="8px"
-                mb="14px"
-                cursor="pointer"
+                mt="30px"
+                w="100%"
+                h="137px"
+                borderRadius="10px"
+                bg="white"
+                flexDir="column"
+                alignItems="center"
+                justifyContent="center"
               >
-                <Text size="Body3">Github</Text>
+                <Link
+                  href="https://github.com/andreasrobert/feed-client"
+                  passHref
+                >
+                  <a>
+                    <Flex
+                      bg="#F2F4FF"
+                      h="fit-content"
+                      w="fit-content"
+                      px="16px"
+                      py="5px"
+                      borderRadius="8px"
+                      mb="14px"
+                      cursor="pointer"
+                    >
+                      <Text size="Body3">Github</Text>
+                    </Flex>
+                  </a>
+                </Link>
+                <Link href="https://andreasrobert.github.io/" passHref>
+                  <a>
+                    <Flex
+                      bg="#F2F4FF"
+                      h="fit-content"
+                      w="fit-content"
+                      px="16px"
+                      py="5px"
+                      borderRadius="8px"
+                      cursor="pointer"
+                    >
+                      <Text size="Body3">More</Text>
+                    </Flex>
+                  </a>
+                </Link>
               </Flex>
-            </a>
-          </Link>
-          <Link href="https://andreasrobert.github.io/" passHref>
-            <a>
-              <Flex
-                bg="#F2F4FF"
-                h="fit-content"
-                w="fit-content"
-                px="16px"
-                py="5px"
-                borderRadius="8px"
-                cursor="pointer"
-              >
-                <Text size="Body3">More</Text>
-              </Flex>
-            </a>
-          </Link>
-        </Flex>
-
             </Flex>
           </Flex>
         </Flex>
