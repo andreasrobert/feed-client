@@ -1,11 +1,10 @@
-import { Flex, Heading, Text, Input, Button, Image } from "@chakra-ui/react";
+import { Flex, Heading, Image } from "@chakra-ui/react";
 import Link from "next/link";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Post } from "../../components/types";
 import PostBar from "../../components/postBar";
-import TopBar from "../../components/topBar";
 import Comment from "../../components/comment";
 import InputComment from "../../components/inputComment";
 
